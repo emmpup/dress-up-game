@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dress Up Game</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <div id="gameArea">
-        <div id="player"></div>
-        <div id="ground"></div>
-        <div id="instructions">
-          Use Left/Right Arrows to move<br>
-          Press Space or Up Arrow to jump
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dress Up Game</title>
+        <link rel="stylesheet" href="platformer/css/styles.css" />
+    </head>
+    <body>
+        <div id="cameraContainer">
+            <div id="gameArea">
+                <div id="gameBackground"></div>
+                <div id="savedCharacter"></div>
+                <div id="player"></div>
+                <div id="ground"></div>
+            </div>
+            <div id="dressUpBox" class="dress-up-box">
+                <span>👕</span>
+                <div>Dress Up!</div>
+            </div>
         </div>
-      </div>
-    
-    <script src="js/move.js"></script>
-</body>
+
+        <!-- Overlay container -->
+        <div id="gameOverlay" class="overlay">
+            <div class="overlay-content">
+                <button id="closeOverlay" class="close-btn">×</button>
+                <iframe
+                    id="dressUpFrame"
+                    src="overlay.html"
+                    frameborder="0"
+                ></iframe>
+            </div>
+        </div>
+
+        <script src="platformer/js/move.js"></script>
+        <script src="platformer/js/overlay.js"></script>
+    </body>
 </html>
