@@ -7,8 +7,8 @@ const ground = document.getElementById("ground");
 const playerState = {
     x: 100,
     y: 100,
-    width: 40,
-    height: 40,
+    width: 64,
+    height: 64,
     velocityX: 0,
     velocityY: 0,
     speed: 5,
@@ -34,6 +34,18 @@ const platforms = [
     { x: 747, y: 165, width: 130, height: 13, image: "platform11.png" },
     { x: 1072, y: 209, width: 100, height: 12, image: "platform12.png" },
     { x: 1261, y: 281, width: 67, height: 16, image: "platform13.png" },
+    { x: 1380, y: 131, width: 69, height: 12, image: "platform14.png" },
+    { x: 1431, y: 306, width: 146, height: 13, image: "platform15.png" },
+    { x: 1404, y: 422, width: 203, height: 12, image: "platform16.png" },
+    { x: 1602, y: 124, width: 140, height: 16, image: "platform17.png" },
+    { x: 1701, y: 203, width: 143, height: 16, image: "platform18.png" },
+    { x: 1804, y: 278, width: 141, height: 16, image: "platform19.png" },
+    { x: 1679, y: 350, width: 71, height: 17, image: "platform20.png" },
+    { x: 1967, y: 350, width: 71, height: 17, image: "platform21.png" },
+    { x: 1888, y: 431, width: 128, height: 12, image: "platform22.png" },
+    { x: 1849, y: 485, width: 85, height: 12, image: "platform23.png" },
+    { x: 688, y: 487, width: 287, height: 41, image: "cushon.png" },
+    { x: 998, y: 508, width: 105, height: 13, image: "table.png" },
 ];
 
 // Create platform elements

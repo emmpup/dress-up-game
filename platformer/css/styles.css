@@ -42,12 +42,12 @@ body {
 
 #player {
     position: absolute;
-    width: 40px; /* Match the width of a single frame */
-    height: 40px; /* Match the height of a single frame */
+    width: 64px;
+    height: 64px;
     background-repeat: no-repeat;
     background-size: cover;
     image-rendering: pixelated;
-    z-index: 10; /* Ensure player stays above ground */
+    z-index: 10;
 }
 
 #player img {
@@ -62,21 +62,21 @@ body {
 
 /* Idle animation */
 .idle {
-    background-image: url("../images/idle-sprite.png");
-    animation: idleAnimation 1s steps(4) infinite; /* 4 frames in the idle sprite */
-    background-position: center bottom; /* Align the visible part of the sprite */
+    background-image: url("../images/idle-cat.png");
+    animation: idleAnimation 1s steps(8) infinite;
+    background-position: center bottom;
 }
 
 /* Run animation */
 .run {
-    background-image: url("../images/run-sprite.png");
-    animation: runAnimation 0.8s steps(8) infinite; /* 8 frames in the run sprite */
+    background-image: url("../images/run-cat.png");
+    animation: runAnimation 0.5s steps(4) infinite;
 }
 
 /* Jump animation */
 .jump {
-    background-image: url("../images/jump-sprite.png");
-    animation: jumpAnimation 1s steps(4) infinite; /* 4 frames in the jump sprite */
+    background-image: url("../images/jump-cat.png");
+    animation: jumpAnimation 0.7s steps(3) infinite;
 }
 
 /* Flip the sprite horizontally */
@@ -91,7 +91,7 @@ body {
         background-position: 0 0;
     }
     to {
-        background-position: -160px 0; /* 4 frames * 40px width */
+        background-position: -512px 0; /* 8 frames * 64px */
     }
 }
 
@@ -101,7 +101,7 @@ body {
         background-position: 0 0;
     }
     to {
-        background-position: -320px 0; /* 8 frames * 40px width */
+        background-position: -256px 0; /* 4 frames * 64px */
     }
 }
 
@@ -111,7 +111,7 @@ body {
         background-position: 0 0;
     }
     to {
-        background-position: -160px 0; /* 4 frames * 40px width */
+        background-position: -192px 0; /* 3 frames * 64px */
     }
 }
 
@@ -224,8 +224,8 @@ body {
 
 .savedCharacter {
     position: absolute;
-    width: 80px;
-    height: 80px;
+    width: 135px;
+    height: 132px;
     z-index: 5; /* Below the player but above the background */
 }
 

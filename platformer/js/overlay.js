@@ -49,7 +49,7 @@ function createSavedCharacter(outfit) {
     const gameAreaRect = window.gameArea.getBoundingClientRect();
 
     savedCharacter.style.left = playerRect.left - gameAreaRect.left + "px";
-    savedCharacter.style.bottom = "20px"; // Just above the ground
+    savedCharacter.style.bottom = "12px"; // Just above the ground
 
     // Create a container for the outfit display
     const display = document.createElement("div");
