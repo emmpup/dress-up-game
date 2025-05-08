@@ -8,7 +8,7 @@ const playerState = {
     x: 100,
     y: 100,
     width: 64,
-    height: 64,
+    height: 32,
     velocityX: 0,
     velocityY: 0,
     speed: 5,
@@ -31,7 +31,7 @@ const platforms = [
     { x: 481, y: 189, width: 58, height: 16, image: "platform8.png" },
     { x: 566, y: 155, width: 58, height: 16, image: "platform9.png" },
     { x: 648, y: 117, width: 58, height: 16, image: "platform10.png" },
-    { x: 747, y: 165, width: 130, height: 13, image: "platform11.png" },
+    { x: 747, y: 165, width: 130, height: 12, image: "platform11.png" },
     { x: 1072, y: 209, width: 100, height: 12, image: "platform12.png" },
     { x: 1261, y: 281, width: 67, height: 16, image: "platform13.png" },
     { x: 1380, y: 131, width: 69, height: 12, image: "platform14.png" },
@@ -46,6 +46,9 @@ const platforms = [
     { x: 1849, y: 485, width: 85, height: 12, image: "platform23.png" },
     { x: 688, y: 487, width: 287, height: 41, image: "cushon.png" },
     { x: 998, y: 508, width: 105, height: 13, image: "table.png" },
+    { x: 327, y: 507, width: 54, height: 26, image: "top-stair.png" },
+    { x: 327, y: 531, width: 100, height: 25, image: "mid-stair.png" },
+    { x: 327, y: 555, width: 145, height: 25, image: "btm-stair.png" },
 ];
 
 // Create platform elements

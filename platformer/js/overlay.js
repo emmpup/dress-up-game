@@ -49,7 +49,10 @@ function createSavedCharacter(outfit) {
     const gameAreaRect = window.gameArea.getBoundingClientRect();
 
     savedCharacter.style.left = playerRect.left - gameAreaRect.left + "px";
-    savedCharacter.style.bottom = "12px"; // Just above the ground
+    // Position the character so its feet are on the platform, accounting for its larger size
+    const heightDifference = savedCharacter.offsetHeight - playerRect.height;
+    savedCharacter.style.top =
+        playerRect.top - gameAreaRect.top - heightDifference - 124 + "px";
 
     // Create a container for the outfit display
     const display = document.createElement("div");
@@ -74,10 +77,10 @@ function createSavedCharacter(outfit) {
 
     // Add all layers in the correct order
     addLayer("dressUp/images/body.png");
+    addLayer(outfit.hair?.image);
     addLayer(outfit.outfits?.image);
     addLayer(outfit.shoes?.image);
     outfit.accessories.forEach((acc) => addLayer(acc.image));
-    addLayer(outfit.hair?.image);
     addLayer(outfit.eyes?.image);
 
     // Add the display to the saved character

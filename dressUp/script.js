@@ -221,11 +221,19 @@ function isItemSelected(item) {
 
 function renderOutfit() {
     const layers = {
-        outfit: { element: "outfit-layer", item: outfit.outfits },
-        shoes: { element: "shoes-layer", item: outfit.shoes },
-        hair: { element: "hair-layer", item: outfit.hair },
-        eyes: { element: "eyes-layer", item: outfit.eyes },
+        outfit: { element: "outfit-layer", item: outfit.outfits, zIndex: 3 },
+        shoes: { element: "shoes-layer", item: outfit.shoes, zIndex: 2 },
+        hair: { element: "hair-layer", item: outfit.hair, zIndex: 4 },
+        eyes: { element: "eyes-layer", item: outfit.eyes, zIndex: 5 },
     };
+
+    // Apply z-index to each layer
+    Object.entries(layers).forEach(([key, { element, zIndex }]) => {
+        const layer = document.getElementById(element);
+        if (layer) {
+            layer.style.zIndex = zIndex;
+        }
+    });
 
     // Render individual layers
     Object.entries(layers).forEach(([key, { element, item }]) => {
