@@ -15,15 +15,28 @@
                 <div id="ground"></div>
             </div>
             <div id="dressUpBox" class="dress-up-box">
-                <span>👕</span>
-                <div>Dress Up!</div>
+                <img
+                    src="platformer/images/dressup.png"
+                    alt="Dress Up"
+                    style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        image-rendering: pixelated;
+                    "
+                />
             </div>
         </div>
 
         <!-- Overlay container -->
         <div id="gameOverlay" class="overlay">
             <div class="overlay-content">
-                <button id="closeOverlay" class="close-btn">×</button>
+                <img
+                    id="closeOverlay"
+                    class="close-btn"
+                    src="platformer/images/close.PNG"
+                    alt="Close"
+                />
                 <iframe
                     id="dressUpFrame"
                     src="overlay.html"

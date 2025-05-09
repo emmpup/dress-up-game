@@ -90,12 +90,6 @@ function createSavedCharacter(outfit) {
     window.gameArea.appendChild(savedCharacter);
 }
 
-// Keep the dress-up box simple with just the icon and text
-dressUpBox.innerHTML = `
-    <span>👕</span>
-    <div>Dress Up!</div>
-`;
-
 // Ensure the iframe is loaded before showing it
 dressUpFrame.addEventListener("load", () => {
     // The iframe is now fully loaded
