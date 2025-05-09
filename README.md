@@ -14,7 +14,7 @@ This project combines two main functionalities:
     - Access the dress-up system through an overlay interface
     - See their saved character design in the game environment
 
-The game is built using HTML, CSS, and JavaScript, featuring a pixelated art style and responsive design.
+The game is built using HTML, CSS, and JavaScript, featuring a pixelated art style.
 
 ## Prerequisites
 
