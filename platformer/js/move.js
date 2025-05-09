@@ -7,7 +7,7 @@ const ground = document.getElementById("ground");
 const playerState = {
     x: 100,
     y: 100,
-    width: 64,
+    width: 50,
     height: 32,
     velocityX: 0,
     velocityY: 0,
