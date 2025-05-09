@@ -1,4 +1,9 @@
-/* Apply pixel art rendering to all elements */
+/**
+ * Dress Up Game - Main Styles
+ * Handles the styling for the dress-up game interface
+ */
+
+/* Global Styles */
 * {
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor;
@@ -16,6 +21,7 @@ body {
     overflow: hidden;
 }
 
+/* Main Container */
 #pixel-overlay-root {
     display: flex;
     flex-direction: row;
@@ -26,6 +32,7 @@ body {
     min-height: 475px;
 }
 
+/* Mirror Area */
 #mirror-area {
     position: relative;
     width: 270px;
@@ -45,6 +52,7 @@ body {
     image-rendering: pixelated;
 }
 
+/* Character Display */
 #character-pixel-display {
     position: absolute;
     left: 0;
@@ -68,6 +76,7 @@ body {
     image-rendering: pixelated;
 }
 
+/* Accessories Container */
 #accessory-container {
     position: absolute;
     left: 50%;
@@ -87,6 +96,7 @@ body {
     image-rendering: pixelated;
 }
 
+/* Right Panel */
 #right-panel {
     display: flex;
     flex-direction: row;
@@ -95,6 +105,7 @@ body {
     gap: 16px;
 }
 
+/* UI Bar */
 #ui-bar {
     display: flex;
     flex-direction: column;
@@ -114,6 +125,7 @@ body {
     display: block;
 }
 
+/* Navigation Arrows */
 .arrow-btn {
     display: block;
     margin: 0 auto 8px auto;
@@ -136,6 +148,13 @@ body {
     pointer-events: none;
 }
 
+.arrow-btn.disabled-arrow {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: grayscale(1);
+}
+
+/* Items Background */
 #items-bg {
     background: url("images/items-bg-ui.png") no-repeat center center;
     background-size: contain;
@@ -148,6 +167,7 @@ body {
     box-sizing: border-box;
 }
 
+/* Item Slots */
 #empty-slots {
     display: flex;
     flex-direction: column;
@@ -205,12 +225,7 @@ body {
     filter: none;
 }
 
-.arrow-btn.disabled-arrow {
-    opacity: 0.3;
-    pointer-events: none;
-    filter: grayscale(1);
-}
-
+/* Save Area */
 #save-area {
     position: absolute;
     left: 50%;
@@ -228,6 +243,7 @@ body {
     display: block;
 }
 
+/* Utility Classes */
 img:not([src]),
 img[src=""] {
     display: none;

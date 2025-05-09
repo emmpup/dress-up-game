@@ -1,4 +1,9 @@
-// Get DOM elements
+/**
+ * Dress Up Game Overlay Module
+ * Handles the dress-up overlay functionality and saved character creation
+ */
+
+// DOM Elements
 const dressUpBox = document.getElementById("dressUpBox");
 const gameOverlay = document.getElementById("gameOverlay");
 const closeOverlayBtn = document.getElementById("closeOverlay");
@@ -37,7 +42,10 @@ window.addEventListener("message", (event) => {
     }
 });
 
-// Create a new saved character
+/**
+ * Creates a new saved character with the given outfit
+ * @param {Object} outfit - The outfit data object containing hair, outfits, shoes, accessories, and eyes
+ */
 function createSavedCharacter(outfit) {
     // Create a new saved character element
     const savedCharacter = document.createElement("div");

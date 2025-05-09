@@ -1,3 +1,29 @@
+/* Dress Up Game Styles */
+
+/* ===== Base Styles ===== */
+:root {
+    --primary-color: #333;
+    --background-color: #f0f0f0;
+    --game-background: #222;
+    --ground-color: #8b4513;
+    --overlay-background: rgba(0, 0, 0, 0.7);
+    --overlay-content-bg: white;
+
+    --viewport-width: 800px;
+    --viewport-height: 600px;
+    --game-area-width: 2000px;
+
+    --player-width: 50px;
+    --player-height: 32px;
+    --platform-default-width: 100px;
+    --platform-default-height: 20px;
+
+    --dress-up-box-width: 100px;
+    --dress-up-box-height: 80px;
+    --overlay-content-width: 500px;
+    --overlay-content-height: 560px;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -5,27 +31,29 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: var(--background-color);
     font-family: Arial, sans-serif;
 }
 
+/* ===== Game Container ===== */
 #cameraContainer {
-    width: 800px; /* Viewport width */
-    height: 600px; /* Viewport height */
+    width: var(--viewport-width);
+    height: var(--viewport-height);
     overflow: hidden;
     position: relative;
-    border: 2px solid #333;
-    background-color: #222;
+    border: 2px solid var(--primary-color);
+    background-color: var(--game-background);
 }
 
 #gameArea {
     position: absolute;
-    width: 2000px; /* Keep game area wide for platforms */
+    width: var(--game-area-width);
     height: 100%;
-    transform: translate(0, 0); /* Initial position */
-    will-change: transform; /* Optimize for performance */
+    transform: translate(0, 0);
+    will-change: transform;
 }
 
+/* ===== Game Background ===== */
 #gameBackground {
     position: absolute;
     top: 0;
@@ -33,17 +61,18 @@ body {
     width: 100%;
     height: 100%;
     background: url("../images/Background.png") no-repeat left center;
-    background-size: auto 100%; /* This will maintain the image's aspect ratio while filling the height */
-    transform: translateZ(0); /* Force GPU acceleration */
-    backface-visibility: hidden; /* Prevent flickering */
-    perspective: 1000; /* Force GPU acceleration */
+    background-size: auto 100%;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000;
     image-rendering: pixelated;
 }
 
+/* ===== Player Character ===== */
 #player {
     position: absolute;
-    width: 50px;
-    height: 32px;
+    width: var(--player-width);
+    height: var(--player-height);
     background-repeat: no-repeat;
     background-size: cover;
     image-rendering: pixelated;
@@ -60,68 +89,64 @@ body {
     image-rendering: pixelated;
 }
 
-/* Idle animation */
+/* Player Animations */
 .idle {
     background-image: url("../images/idle-cat.png");
     animation: idleAnimation 1s steps(8) infinite;
     background-position: center bottom;
 }
 
-/* Run animation */
 .run {
     background-image: url("../images/run-cat (2).png");
     animation: runAnimation 0.5s steps(4) infinite;
 }
 
-/* Jump animation */
 .jump {
     background-image: url("../images/jump-cat (3).png");
     animation: jumpAnimation 0.5s steps(3) infinite;
 }
 
-/* Flip the sprite horizontally */
 .flip {
-    transform: scaleX(-1); /* Flip the sprite horizontally */
-    transform-origin: center; /* Ensure the flip happens around the center */
+    transform: scaleX(-1);
+    transform-origin: center;
 }
 
-/* Keyframes for idle */
+/* Animation Keyframes */
 @keyframes idleAnimation {
     from {
         background-position: 0 0;
     }
     to {
-        background-position: -400px 0; /* 8 frames * 50px */
+        background-position: -400px 0;
     }
 }
 
-/* Keyframes for run */
 @keyframes runAnimation {
     from {
         background-position: 0 0;
     }
     to {
-        background-position: -200px 0; /* 4 frames * 50px */
+        background-position: -200px 0;
     }
 }
 
-/* Keyframes for jump */
 @keyframes jumpAnimation {
     from {
         background-position: 0 0;
     }
     to {
-        background-position: -150px 0; /* 3 frames * 50px */
+        background-position: -150px 0;
     }
 }
 
+/* ===== Game Elements ===== */
 .platform {
     position: absolute;
     background-size: cover;
     background-repeat: no-repeat;
     border: none;
-    width: 100px; /* Default platform width */
-    height: 20px; /* Default platform height */
+    width: var(--platform-default-width);
+    height: var(--platform-default-height);
     image-rendering: pixelated;
 }
 
@@ -129,20 +154,17 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 20px;
-    background-color: #8b4513;
+    height: var(--platform-default-height);
+    background-color: var(--ground-color);
 }
 
-/* Dress-up box styling */
+/* ===== Dress Up Box ===== */
 .dress-up-box {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 100px;
-    height: 80px;
-    /* background-color: #9333ea; */
-    /* border: 4px solid #6b21a8; */
-    /* border-radius: 8px; */
+    width: var(--dress-up-box-width);
+    height: var(--dress-up-box-height);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -152,7 +174,7 @@ body {
     font-family: Arial, sans-serif;
     font-weight: bold;
     image-rendering: pixelated;
-    z-index: 100; /* Ensure it stays above the game elements */
+    z-index: 100;
 }
 
 .dress-up-box span {
@@ -160,17 +182,7 @@ body {
     margin-bottom: 5px;
 }
 
-@keyframes float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-/* Overlay styling */
+/* ===== Overlay ===== */
 .overlay {
     display: none;
     position: fixed;
@@ -178,7 +190,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: var(--overlay-background);
     z-index: 1000;
     justify-content: center;
     align-items: center;
@@ -190,9 +202,9 @@ body {
 
 .overlay-content {
     position: relative;
-    width: 500px; /* Match character display width */
-    height: 560px; /* Match character display height */
-    background-color: white;
+    width: var(--overlay-content-width);
+    height: var(--overlay-content-height);
+    background-color: var(--overlay-content-bg);
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -216,14 +228,15 @@ body {
     width: 100%;
     height: 100%;
     border: none;
-    background: white;
+    background: var(--overlay-content-bg);
 }
 
+/* ===== Saved Characters ===== */
 .savedCharacter {
     position: absolute;
     width: 135px;
     height: 132px;
-    z-index: 5; /* Below the player but above the background */
+    z-index: 5;
 }
 
 .savedCharacter img {

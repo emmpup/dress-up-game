@@ -8,6 +8,7 @@
 const PIXEL_SIZE_SMALL = 2;
 const PIXEL_SIZE_LARGE = 4;
 const BORDER_COLOR = "#000";
+const SLOTS_VISIBLE = 4;
 
 // Determine if we're in an iframe (overlay mode)
 const isOverlay = window !== window.parent;
@@ -15,7 +16,10 @@ const isOverlay = window !== window.parent;
 // Adjust paths based on context
 const imagePath = isOverlay ? "../dressUp/images/" : "dressUp/images/";
 
-// Game State
+/**
+ * Game Categories Configuration
+ * Defines the available categories and their properties
+ */
 const categories = [
     { id: "outfits", name: "Outfits", icon: "👗" },
     { id: "shoes", name: "Shoes", icon: "👠" },
@@ -24,6 +28,10 @@ const categories = [
     { id: "eyes", name: "Eyes", icon: "👁️" },
 ];
 
+/**
+ * Items Configuration
+ * Defines all available items by category
+ */
 const itemsByCategory = {
     outfits: [
         { id: "o1", image: `${imagePath}outfit1.png` },
@@ -71,9 +79,11 @@ const outfit = {
 
 let activeCategory = "outfits";
 let currentSlotStartIndex = 0;
-const SLOTS_VISIBLE = 4;
 
-// Map button IDs to category IDs
+/**
+ * Category Button Mapping
+ * Maps button IDs to their corresponding categories
+ */
 const categoryButtonMap = [
     { btnId: "outfits-btn", category: "outfits" },
     { btnId: "eyes-btn", category: "eyes" },
@@ -82,6 +92,10 @@ const categoryButtonMap = [
     { btnId: "shoes-btn", category: "shoes" },
 ];
 
+/**
+ * Sets the active category and updates the UI accordingly
+ * @param {string} catId - The category ID to set as active
+ */
 function setActiveCategory(catId) {
     activeCategory = catId;
     currentSlotStartIndex = 0;
@@ -89,44 +103,53 @@ function setActiveCategory(catId) {
     renderItems();
 }
 
+/**
+ * Updates the visual state of category buttons
+ */
 function updateCategoryButtonStates() {
     categoryButtonMap.forEach(({ btnId, category }) => {
         const btn = document.getElementById(btnId);
         if (btn) {
-            if (activeCategory === category) {
-                btn.style.opacity = "1";
-                btn.style.filter = "none";
-            } else {
-                btn.style.opacity = "0.5";
-                btn.style.filter = "grayscale(1)";
-            }
+            btn.style.opacity = activeCategory === category ? "1" : "0.5";
+            btn.style.filter =
+                activeCategory === category ? "none" : "grayscale(1)";
         }
     });
 }
 
+/**
+ * Renders the items for the current category
+ */
 function renderItems() {
     const slotsContainer = document.getElementById("empty-slots");
     if (!slotsContainer) return;
+
     slotsContainer.innerHTML = "";
     const items = itemsByCategory[activeCategory] || [];
+
     // Clamp start index
-    if (currentSlotStartIndex > items.length - SLOTS_VISIBLE) {
-        currentSlotStartIndex = Math.max(0, items.length - SLOTS_VISIBLE);
-    }
-    if (currentSlotStartIndex < 0) currentSlotStartIndex = 0;
-    // Only show SLOTS_VISIBLE items
+    currentSlotStartIndex = Math.max(
+        0,
+        Math.min(currentSlotStartIndex, items.length - SLOTS_VISIBLE)
+    );
+
+    // Show visible items
     const visibleItems = items.slice(
         currentSlotStartIndex,
         currentSlotStartIndex + SLOTS_VISIBLE
     );
+
     visibleItems.forEach((item) => {
         const slot = document.createElement("div");
         slot.className = "slot";
+
         const img = document.createElement("img");
         img.className = "slot-item-img";
         img.src = item.image;
         slot.appendChild(img);
+
         slot.onclick = () => handleItemClick(item);
+
         if (isItemSelected(item)) {
             slot.classList.add("selected");
             const border = document.createElement("img");
@@ -134,65 +157,37 @@ function renderItems() {
             border.src = "dressUp/images/item-selected-border-ui-v2.png";
             slot.appendChild(border);
         }
+
         slotsContainer.appendChild(slot);
     });
-    // Arrow logic
+
+    // Update arrow states
+    updateArrowStates(items.length);
+}
+
+/**
+ * Updates the state of navigation arrows
+ * @param {number} totalItems - Total number of items in current category
+ */
+function updateArrowStates(totalItems) {
     const arrowUp = document.getElementById("arrow-up");
     const arrowDown = document.getElementById("arrow-down");
+
     if (arrowUp) {
-        if (currentSlotStartIndex === 0) {
-            arrowUp.classList.add("disabled-arrow");
-        } else {
-            arrowUp.classList.remove("disabled-arrow");
-        }
+        arrowUp.classList.toggle("disabled-arrow", currentSlotStartIndex === 0);
     }
     if (arrowDown) {
-        if (currentSlotStartIndex + SLOTS_VISIBLE >= items.length) {
-            arrowDown.classList.add("disabled-arrow");
-        } else {
-            arrowDown.classList.remove("disabled-arrow");
-        }
+        arrowDown.classList.toggle(
+            "disabled-arrow",
+            currentSlotStartIndex + SLOTS_VISIBLE >= totalItems
+        );
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Add event listeners for category buttons
-    categoryButtonMap.forEach(({ btnId, category }) => {
-        const btn = document.getElementById(btnId);
-        if (btn) {
-            btn.onclick = () => setActiveCategory(category);
-        }
-    });
-    // Save button
-    const saveBtn = document.getElementById("save-btn");
-    if (saveBtn) {
-        saveBtn.onclick = handleSaveOutfit;
-    }
-    // Initial state
-    setActiveCategory("outfits");
-    renderOutfit();
-    // Arrow event listeners
-    const arrowUp = document.getElementById("arrow-up");
-    const arrowDown = document.getElementById("arrow-down");
-    if (arrowUp) {
-        arrowUp.onclick = () => {
-            if (arrowUp.classList.contains("disabled-arrow")) return;
-            currentSlotStartIndex = Math.max(0, currentSlotStartIndex - 1);
-            renderItems();
-        };
-    }
-    if (arrowDown) {
-        arrowDown.onclick = () => {
-            if (arrowDown.classList.contains("disabled-arrow")) return;
-            const items = itemsByCategory[activeCategory] || [];
-            if (currentSlotStartIndex + SLOTS_VISIBLE < items.length) {
-                currentSlotStartIndex++;
-                renderItems();
-            }
-        };
-    }
-});
-
+/**
+ * Handles item selection
+ * @param {Object} item - The selected item
+ */
 function handleItemClick(item) {
     if (activeCategory === "accessories") {
         const index = outfit.accessories.findIndex(
@@ -211,6 +206,11 @@ function handleItemClick(item) {
     renderItems();
 }
 
+/**
+ * Checks if an item is currently selected
+ * @param {Object} item - The item to check
+ * @returns {boolean} Whether the item is selected
+ */
 function isItemSelected(item) {
     return (
         (activeCategory === "accessories" &&
@@ -219,6 +219,9 @@ function isItemSelected(item) {
     );
 }
 
+/**
+ * Renders the current outfit
+ */
 function renderOutfit() {
     const layers = {
         outfit: { element: "outfit-layer", item: outfit.outfits, zIndex: 3 },
@@ -254,22 +257,21 @@ function renderOutfit() {
 
     // Render accessories
     const accessoryContainer = document.getElementById("accessory-container");
-    if (!accessoryContainer) {
-        console.error("Accessory container not found");
-        return;
+    if (accessoryContainer) {
+        accessoryContainer.innerHTML = "";
+        outfit.accessories.forEach((accessory) => {
+            const img = document.createElement("img");
+            img.src = accessory.image;
+            img.className = "layer accessory-layer";
+            img.alt = "accessory";
+            accessoryContainer.appendChild(img);
+        });
     }
-
-    accessoryContainer.innerHTML = "";
-    outfit.accessories.forEach((accessory) => {
-        const img = document.createElement("img");
-        img.src = accessory.image;
-        img.className = "layer accessory-layer";
-        img.alt = "accessory";
-        accessoryContainer.appendChild(img);
-    });
 }
 
-// Event Handlers
+/**
+ * Resets the outfit to default state
+ */
 function handleReset() {
     outfit.outfits = itemsByCategory.outfits[0];
     outfit.shoes = null;
@@ -280,31 +282,86 @@ function handleReset() {
     renderItems();
 }
 
+/**
+ * Handles saving the current outfit
+ */
 function handleSaveOutfit() {
-    const saved = {
-        outfits: outfit.outfits,
-        shoes: outfit.shoes,
-        accessories: [...outfit.accessories],
-        hair: outfit.hair,
-        eyes: outfit.eyes,
-    };
+    try {
+        // Create a deep copy of the current outfit state
+        const savedOutfit = {
+            outfits: outfit.outfits ? { ...outfit.outfits } : null,
+            shoes: outfit.shoes ? { ...outfit.shoes } : null,
+            accessories: outfit.accessories.map((acc) => ({ ...acc })),
+            hair: outfit.hair ? { ...outfit.hair } : null,
+            eyes: outfit.eyes ? { ...outfit.eyes } : null,
+        };
 
-    // Send the saved outfit data to the parent window
-    window.parent.postMessage(
-        {
-            type: "outfitSaved",
-            outfit: saved,
-        },
-        "*"
-    );
+        // Send the saved outfit data to the parent window
+        if (isOverlay) {
+            window.parent.postMessage(
+                {
+                    type: "outfitSaved",
+                    outfit: savedOutfit,
+                },
+                "*"
+            );
+        } else {
+            // If not in overlay, save to localStorage
+            localStorage.setItem("savedOutfit", JSON.stringify(savedOutfit));
+        }
 
-    // Reset to default
-    outfit.outfits = itemsByCategory.outfits[0];
-    outfit.shoes = null;
-    outfit.accessories = [];
-    outfit.hair = itemsByCategory.hair[0];
-    outfit.eyes = itemsByCategory.eyes[0];
+        // Reset to default state
+        handleReset();
 
-    renderOutfit();
-    renderItems();
+        // Show success message
+        console.log("Outfit saved successfully!");
+    } catch (error) {
+        console.error("Error saving outfit:", error);
+    }
 }
+
+// Initialize the game when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Add event listeners for category buttons
+    categoryButtonMap.forEach(({ btnId, category }) => {
+        const btn = document.getElementById(btnId);
+        if (btn) {
+            btn.onclick = () => setActiveCategory(category);
+        }
+    });
+
+    // Save button
+    const saveBtn = document.getElementById("save-btn");
+    if (saveBtn) {
+        saveBtn.onclick = handleSaveOutfit;
+    }
+
+    // Arrow navigation
+    const arrowUp = document.getElementById("arrow-up");
+    const arrowDown = document.getElementById("arrow-down");
+
+    if (arrowUp) {
+        arrowUp.onclick = () => {
+            if (!arrowUp.classList.contains("disabled-arrow")) {
+                currentSlotStartIndex = Math.max(0, currentSlotStartIndex - 1);
+                renderItems();
+            }
+        };
+    }
+
+    if (arrowDown) {
+        arrowDown.onclick = () => {
+            if (!arrowDown.classList.contains("disabled-arrow")) {
+                const items = itemsByCategory[activeCategory] || [];
+                if (currentSlotStartIndex + SLOTS_VISIBLE < items.length) {
+                    currentSlotStartIndex++;
+                    renderItems();
+                }
+            }
+        };
+    }
+
+    // Initial state
+    setActiveCategory("outfits");
+    renderOutfit();
+});
