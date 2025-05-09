@@ -74,6 +74,9 @@ const keys = {
     ArrowRight: false,
     ArrowUp: false,
     Space: false,
+    KeyA: false, // A key
+    KeyD: false, // D key
+    KeyW: false, // W key
 };
 
 // Add near the top of the file after other variable declarations:
@@ -81,23 +84,41 @@ window.gameLoopPaused = false;
 
 // Event listeners for key presses
 window.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") keys.ArrowLeft = true;
-    if (e.key === "ArrowRight") keys.ArrowRight = true;
-    if (e.key === "ArrowUp") keys.ArrowUp = true;
+    if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A")
+        keys.ArrowLeft = true;
+    if (e.key === "ArrowRight" || e.key === "d" || e.key === "D")
+        keys.ArrowRight = true;
+    if (e.key === "ArrowUp" || e.key === "w" || e.key === "W")
+        keys.ArrowUp = true;
     if (e.key === " ") keys.Space = true;
 
-    // Prevent scrolling with arrow keys and space
+    // Prevent scrolling with arrow keys, WASD and space
     if (
-        ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)
+        [
+            "ArrowUp",
+            "ArrowDown",
+            "ArrowLeft",
+            "ArrowRight",
+            "w",
+            "W",
+            "a",
+            "A",
+            "d",
+            "D",
+            " ",
+        ].includes(e.key)
     ) {
         e.preventDefault();
     }
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.key === "ArrowLeft") keys.ArrowLeft = false;
-    if (e.key === "ArrowRight") keys.ArrowRight = false;
-    if (e.key === "ArrowUp") keys.ArrowUp = false;
+    if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A")
+        keys.ArrowLeft = false;
+    if (e.key === "ArrowRight" || e.key === "d" || e.key === "D")
+        keys.ArrowRight = false;
+    if (e.key === "ArrowUp" || e.key === "w" || e.key === "W")
+        keys.ArrowUp = false;
     if (e.key === " ") keys.Space = false;
 });
 
