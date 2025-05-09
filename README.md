@@ -50,12 +50,6 @@ The game is built using HTML, CSS, and JavaScript, featuring a pixelated art sty
 -   Seamless integration between the dress-up system and platformer game
 -   Responsive design that works across different screen sizes
 
-## Screenshots
-
--   Example UI:
-    -   ![Overlay UI Example](overlay-ui-example.png)
-    -   ![Overlay UI Example 2](overlay-ui-example-2.png)
-
 ## License
 
 This project is for educational purposes and is not licensed for commercial use.
