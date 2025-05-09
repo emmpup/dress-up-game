@@ -1,3 +1,8 @@
+/**
+ * Dress Up Game - Player Movement and Physics Module
+ * Handles player movement, collision detection, and game physics
+ */
+
 // Get DOM elements
 const player = document.getElementById("player");
 window.gameArea = document.getElementById("gameArea");
@@ -55,16 +60,11 @@ const platforms = [
 platforms.forEach((platform) => {
     const platformElement = document.createElement("div");
     platformElement.className = "platform";
-
-    // Set positions and sizes in pixels
     platformElement.style.left = platform.x + "px";
     platformElement.style.top = platform.y + "px";
     platformElement.style.width = platform.width + "px";
     platformElement.style.height = platform.height + "px";
-
-    // Set the background image for each platform with the correct path
     platformElement.style.backgroundImage = `url("platformer/images/platforms/${platform.image}")`;
-
     gameArea.appendChild(platformElement);
 });
 
@@ -74,12 +74,12 @@ const keys = {
     ArrowRight: false,
     ArrowUp: false,
     Space: false,
-    KeyA: false, // A key
-    KeyD: false, // D key
-    KeyW: false, // W key
+    KeyA: false,
+    KeyD: false,
+    KeyW: false,
 };
 
-// Add near the top of the file after other variable declarations:
+// Game state
 window.gameLoopPaused = false;
 
 // Event listeners for key presses
@@ -122,7 +122,10 @@ window.addEventListener("keyup", (e) => {
     if (e.key === " ") keys.Space = false;
 });
 
-// Check collisions with platforms
+/**
+ * Checks for collisions with platforms and ground
+ * @returns {boolean} Whether the player is on a platform
+ */
 function checkPlatformCollisions() {
     let onPlatform = false;
 
@@ -148,7 +151,7 @@ function checkPlatformCollisions() {
         const platformWidth = platform.width;
         const platformHeight = platform.height;
 
-        // If player is above the platform and falling
+        // Vertical collision
         if (
             playerState.velocityY > 0 &&
             playerState.y + playerState.height <= platformY + platformHeight &&
@@ -163,7 +166,7 @@ function checkPlatformCollisions() {
             onPlatform = true;
         }
 
-        // Side collisions (optional, simplified)
+        // Horizontal collision
         if (
             playerState.y + playerState.height > platformY &&
             playerState.y < platformY + platformHeight
@@ -189,7 +192,9 @@ function checkPlatformCollisions() {
     return onPlatform;
 }
 
-// Update player animation
+/**
+ * Updates the player's animation state based on movement
+ */
 function updatePlayerAnimation() {
     if (playerState.velocityY < 0 || playerState.isJumping) {
         // Jump animation
@@ -228,7 +233,9 @@ function updatePlayerAnimation() {
     }
 }
 
-// Update camera position
+/**
+ * Updates the camera position to follow the player
+ */
 function updateCamera() {
     const cameraContainer = document.getElementById("cameraContainer");
 
@@ -255,7 +262,9 @@ function updateCamera() {
     )}px, ${-Math.floor(offsetY)}px)`;
 }
 
-// Game loop
+/**
+ * Main game update loop
+ */
 function update() {
     // Skip updates if game is paused
     if (window.gameLoopPaused) {
