@@ -1,0 +1,240 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+#cameraContainer {
+    width: 800px; /* Viewport width */
+    height: 600px; /* Viewport height */
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #333;
+    background-color: #222;
+}
+
+#gameArea {
+    position: absolute;
+    width: 2000px; /* Keep game area wide for platforms */
+    height: 100%;
+    transform: translate(0, 0); /* Initial position */
+    will-change: transform; /* Optimize for performance */
+}
+
+#gameBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("../images/Background.png") no-repeat left center;
+    background-size: auto 100%; /* This will maintain the image's aspect ratio while filling the height */
+    transform: translateZ(0); /* Force GPU acceleration */
+    backface-visibility: hidden; /* Prevent flickering */
+    perspective: 1000; /* Force GPU acceleration */
+    image-rendering: pixelated;
+}
+
+#player {
+    position: absolute;
+    width: 64px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    image-rendering: pixelated;
+    z-index: 10;
+}
+
+#player img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+/* Idle animation */
+.idle {
+    background-image: url("../images/idle-cat.png");
+    animation: idleAnimation 1s steps(8) infinite;
+    background-position: center bottom;
+}
+
+/* Run animation */
+.run {
+    background-image: url("../images/run-cat.png");
+    animation: runAnimation 0.5s steps(4) infinite;
+}
+
+/* Jump animation */
+.jump {
+    background-image: url("../images/jump-cat.png");
+    animation: jumpAnimation 0.7s steps(3) infinite;
+}
+
+/* Flip the sprite horizontally */
+.flip {
+    transform: scaleX(-1); /* Flip the sprite horizontally */
+    transform-origin: center; /* Ensure the flip happens around the center */
+}
+
+/* Keyframes for idle */
+@keyframes idleAnimation {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -512px 0; /* 8 frames * 64px */
+    }
+}
+
+/* Keyframes for run */
+@keyframes runAnimation {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -256px 0; /* 4 frames * 64px */
+    }
+}
+
+/* Keyframes for jump */
+@keyframes jumpAnimation {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -192px 0; /* 3 frames * 64px */
+    }
+}
+
+.platform {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    width: 100px; /* Default platform width */
+    height: 20px; /* Default platform height */
+    image-rendering: pixelated;
+}
+
+#ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #8b4513;
+}
+
+/* Dress-up box styling */
+.dress-up-box {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: #9333ea;
+    border: 4px solid #6b21a8;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    image-rendering: pixelated;
+    z-index: 100; /* Ensure it stays above the game elements */
+}
+
+.dress-up-box span {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Overlay styling */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    position: relative;
+    width: 500px; /* Match character display width */
+    height: 560px; /* Match character display height */
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: #9333ea;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#dressUpFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: white;
+}
+
+.savedCharacter {
+    position: absolute;
+    width: 135px;
+    height: 132px;
+    z-index: 5; /* Below the player but above the background */
+}
+
+.savedCharacter img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: pixelated;
+}

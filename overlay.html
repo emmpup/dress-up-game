@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dress Up Game</title>
+        <link rel="stylesheet" href="dressUp/style.css" />
+    </head>
+    <body>
+        <div id="pixel-overlay-root">
+            <div id="mirror-area">
+                <img
+                    id="mirror-bg"
+                    src="dressUp/images/mirror-ui.png"
+                    alt="Mirror"
+                />
+                <div id="character-pixel-display">
+                    <img id="base-character" src="dressUp/images/body.png" />
+                    <img class="layer" id="outfit-layer" />
+                    <img class="layer" id="shoes-layer" />
+                    <div id="accessory-container"></div>
+                    <img class="layer" id="hair-layer" />
+                    <img class="layer" id="eyes-layer" />
+                </div>
+            </div>
+            <div id="right-panel">
+                <div id="ui-bar">
+                    <img
+                        class="ui-btn"
+                        id="outfits-btn"
+                        src="dressUp/images/outfits-ui.png"
+                        alt="Outfits"
+                    />
+                    <img
+                        class="ui-btn"
+                        id="eyes-btn"
+                        src="dressUp/images/eyes-ui.png"
+                        alt="Eyes"
+                    />
+                    <img
+                        class="ui-btn"
+                        id="tops-btn"
+                        src="dressUp/images/hair-ui.png"
+                        alt="Tops"
+                    />
+                    <img
+                        class="ui-btn"
+                        id="accessories-btn"
+                        src="dressUp/images/accessories-ui.png"
+                        alt="Accessories"
+                    />
+                    <img
+                        class="ui-btn"
+                        id="shoes-btn"
+                        src="dressUp/images/shoes-ui.png"
+                        alt="Shoes"
+                    />
+                </div>
+                <div id="items-bg">
+                    <img
+                        id="arrow-up"
+                        class="arrow-btn"
+                        src="dressUp/images/arrow-ui.png"
+                        alt="Up"
+                    />
+                    <div id="empty-slots">
+                        <!-- Slots will be rendered by JS -->
+                    </div>
+                    <img
+                        id="arrow-down"
+                        class="arrow-btn"
+                        src="dressUp/images/arrow-ui.png"
+                        alt="Down"
+                    />
+                </div>
+            </div>
+            <div id="save-area">
+                <img
+                    id="save-btn"
+                    src="dressUp/images/save-ui.png"
+                    alt="Save"
+                />
+            </div>
+        </div>
+        <script src="dressUp/script.js"></script>
+    </body>
+</html>
