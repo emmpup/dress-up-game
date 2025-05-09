@@ -9,7 +9,7 @@ This project combines two main functionalities:
     - Save their character design
 
 2. A **platformer game** where:
-    - Players can control a cat using the arrow keys and space bar
+    - Players can control a cat using the arrow keys, W, A, D, and space bar
     - Navigate through a scene with platforms
     - Access the dress-up system through an overlay interface
     - See their saved character design in the game environment
